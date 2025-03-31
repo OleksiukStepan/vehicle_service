@@ -8,5 +8,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
     """
     ViewSet for performing CRUD operations on Company model.
     """
+
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
