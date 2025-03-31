@@ -9,6 +9,8 @@ A Django-based REST API service for monitoring vehicle service companies and the
 - [Environment Variables](#environment-variables)
 - [Testing](#testing)
 - [Project Structure and Design Decisions](#project-structure-and-design-decisions)
+- [URL Configuration](#url-configuration)
+- [Admin Interface](#admin-interface)
 
 ## Getting Started
 
@@ -127,17 +129,21 @@ The project includes the following core models:
 
 ```
 vehicle_service/
-├── core/                 # Project core settings
-├── companies/           # Companies app
-│   ├── migrations/     # Database migrations
-│   ├── tests/         # Test files
-│   ├── models.py      # Company model
-│   ├── serializers.py # API serializers
-│   ├── views.py       # API views
-│   └── urls.py        # URL routing
+├── core/              # Project core settings
+│   ├── settings.py      # Project settings
+│   ├── urls.py          # Main URL configuration
+│   └── wsgi.py          # WSGI configuration
+├── companies/         # Companies app
+│   ├── admin.py         # Admin interface configuration
+│   ├── migrations/      # Database migrations
+│   ├── models.py        # Company model
+│   ├── serializers.py   # API serializers
+│   ├── tests/           # Test files
+│   ├── urls.py          # App URL routing
+│   └── views.py         # API views
 ├── manage.py          # Django management script
 ├── requirements.txt   # Project dependencies
-└── .env              # Environment variables
+└── .env               # Environment variables
 ```
 
 ### API Endpoints
@@ -149,3 +155,46 @@ vehicle_service/
 - `GET /api/companies/{id}/` - Get company details
 - `PUT /api/companies/{id}/` - Update company
 - `DELETE /api/companies/{id}/` - Delete company
+
+## URL Configuration
+
+The project uses a hierarchical URL configuration:
+
+### Main URLs (core/urls.py)
+
+- Includes the admin interface
+- Includes the API documentation (Swagger UI and ReDoc)
+- Includes the companies app URLs
+
+### App URLs (companies/urls.py)
+
+- Defines the routing for company-related endpoints
+- Uses ViewSets for handling CRUD operations
+- Implements proper URL patterns for all company operations
+
+## Admin Interface
+
+The project includes a Django admin interface for managing companies:
+
+### Access
+
+- Available at: http://localhost:8000/admin/
+- Requires superuser credentials
+
+### Features
+
+- CRUD operations for companies
+- List view with search and filtering
+- Detail view with all company information
+- Custom display of company fields
+- Timestamp tracking (created_at, updated_at)
+
+### Creating a Superuser
+
+To access the admin interface, create a superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+##
