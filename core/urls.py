@@ -24,15 +24,6 @@ from drf_spectacular.views import (
 )
 
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Vehicle Service API",
-        default_version="v1",
-        description="API for monitoring vehicle service",
-    ),
-    public=True,
-)
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("companies.urls")),
